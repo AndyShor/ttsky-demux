@@ -19,7 +19,6 @@ module tb ();
   reg ena;
   reg [7:0] ui_in;
   reg [7:0] uio_in;
-  wire [7:0] uo_out;
   wire [7:0] uio_out;
   wire [7:0] uio_oe;
 `ifdef GL_TEST
@@ -27,8 +26,11 @@ module tb ();
   wire VGND = 1'b0;
 `endif
 
+reg cs, wr, demux_ena;
+reg [4:0] set_ch;
+
   // Replace tt_um_example with your module name:
-  tt_um_example user_project (
+  tt_um_andyshor_demux tt_um_andyshor_demux (
 
       // Include power ports for the Gate Level test:
 `ifdef GL_TEST
@@ -36,8 +38,8 @@ module tb ();
       .VGND(VGND),
 `endif
 
-      .ui_in  (ui_in),    // Dedicated inputs
-      .uo_out (uo_out),   // Dedicated outputs
+      .ui_in  (8'b00000000),    // Dedicated inputs
+      .uo_out ({ set_ch, cs, wr, demux_ena}),   // Dedicated outputs
       .uio_in (uio_in),   // IOs: Input path
       .uio_out(uio_out),  // IOs: Output path
       .uio_oe (uio_oe),   // IOs: Enable path (active high: 0=input, 1=output)
