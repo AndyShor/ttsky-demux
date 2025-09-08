@@ -22,8 +22,8 @@ reg wr ;
 reg cs ;
 reg [4:0] set_ch;
 assign uio_oe = 8'b00000000;
-assign uio_in = 8'b00000000;
-assign ui_in = 8'b00000000;
+assign uio_out = 8'b00000000;
+
 
 
 
