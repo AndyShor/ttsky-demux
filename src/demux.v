@@ -20,7 +20,7 @@ reg [1:0] state; // register keeping the machine state
 
 always @(posedge clk) begin
     if (rst) begin
-        clk_count=0;
+        clk_count<=0;
         ena <= 0;
         div_clk <=0;
         state <= STATE_COUNTING;
