@@ -7,7 +7,7 @@
 
 module tt_um_andyshor_demux (
     input  wire [7:0] ui_in,    // Dedicated inputs
-    output wire [7:0] uo_out,   // Dedicated outputs
+    output reg [7:0] uo_out,   // Dedicated outputs
     input  wire [7:0] uio_in,   // IOs: Input path
     output wire [7:0] uio_out,  // IOs: Output path
     output wire [7:0] uio_oe,   // IOs: Enable path (active high: 0=input, 1=output)
@@ -17,10 +17,10 @@ module tt_um_andyshor_demux (
 );
 
 wire rst= !rst_n;
-wire demux_ena = uo_out[0];
-wire wr = uo_out[1];
-wire cs = uo_out[2];
-wire [4:0] set_ch = uo_out[7:3];
+reg demux_ena ;
+reg wr ;
+reg cs ;
+reg [4:0] set_ch;
 assign uio_oe = 8'b00000000;
 assign uio_in = 8'b00000000;
 assign ui_in = 8'b00000000;
@@ -36,5 +36,9 @@ demux #(.CLK_DIVIDER(24'd10000000)) demux  (
     	.set_ch(set_ch)  // set output channel
 
 );
+
+
+
+assign uo_out = {set_ch,cs, wr, demux_ena};
 
 endmodule

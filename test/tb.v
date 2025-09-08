@@ -1,6 +1,7 @@
 `default_nettype none
 `timescale 1ns / 1ps
 
+
 /* This testbench just instantiates the module and makes some convenient wires
    that can be driven / tested by the cocotb test.py.
 */
@@ -28,6 +29,11 @@ module tb ();
 
 reg cs, wr, demux_ena;
 reg [4:0] set_ch;
+reg [7:0] uo_out_internal;
+assign demux_ena=uo_out_internal[0];
+assign wr = uo_out_internal[1];
+assign cs = uo_out_internal[2];
+assign set_ch = uo_out_internal[7:3];
 
   // Replace tt_um_example with your module name:
   tt_um_andyshor_demux tt_um_andyshor_demux (
@@ -39,7 +45,7 @@ reg [4:0] set_ch;
 `endif
 
       .ui_in  (8'b00000000),    // Dedicated inputs
-      .uo_out ({ set_ch, cs, wr, demux_ena}),   // Dedicated outputs
+      .uo_out (uo_out_internal),   // Dedicated outputs
       .uio_in (uio_in),   // IOs: Input path
       .uio_out(uio_out),  // IOs: Output path
       .uio_oe (uio_oe),   // IOs: Enable path (active high: 0=input, 1=output)
