@@ -26,36 +26,37 @@ always @(posedge clk) begin
         state <= STATE_COUNTING;
         set_ch <=0;
 
-    end
-    if (clk_count>= CLK_DIVIDER) begin
-        state <= STATE_PREP;        
-        div_clk <= ~div_clk;
-        clk_count <= 0;
-        set_ch <= set_ch+1;
-        wr <= 0;
-        cs <=1;
-        ena <= 0;
     end else begin
-        clk_count <=  clk_count+1;
-        cs <=0;
-    end
-    
-    if (state==STATE_PREP) begin
-     wr <= 1;
-     cs <=1;
-     state<=STATE_COUNTING;
+	    if (clk_count>= CLK_DIVIDER) begin
+		state <= STATE_PREP;        
+		div_clk <= ~div_clk;
+		clk_count <= 0;
+		set_ch <= set_ch+1;
+		wr <= 0;
+		cs <=1;
+		ena <= 0;
+	    end else begin
+		clk_count <=  clk_count+1;
+		cs <=0;
+	    end
+	    
+	    if (state==STATE_PREP) begin
+	     wr <= 1;
+	     cs <=1;
+	     state<=STATE_COUNTING;
 
-    end
+	    end
 
-    if (state==STATE_COUNTING) begin
-    wr <= 0;
-    
-    end
-    
+	    if (state==STATE_COUNTING) begin
+	    wr <= 0;
+	    
+	    end
+	    
 
 
-    if (set_ch>=25) begin
-     set_ch<= 0;
+	    if (set_ch>=25) begin
+	     set_ch<= 0;
+	    end
     end
     
 
