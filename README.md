@@ -1,41 +1,27 @@
 ![](../../workflows/gds/badge.svg) ![](../../workflows/docs/badge.svg) ![](../../workflows/test/badge.svg) ![](../../workflows/fpga/badge.svg)
 
-# Tiny Tapeout Verilog Project Template
+# This is an ASIC project created as a part of Zero to ASIC course for submission to SKY130 fab
 
-- [Read the documentation for project](docs/info.md)
+Zero to ASIC is a fantastic course that lets everyone to create their own little Aplication Specific Integrated Circuit 
+(ASIC chip all the way through, from HDL code up to an actual chip manufactured and packaged on a PCB.
 
-## What is Tiny Tapeout?
+## ASIC details
 
-Tiny Tapeout is an educational project that aims to make it easier and cheaper than ever to get your digital and analog designs manufactured on a real chip.
+This ASIC is designed to control ADG732 demultiplexer chip from Analog Devices. ASIC takes internal clock signal of 10 MHz.
+Divides it to 1 Hz. At this divided frequency the ASIC increments address value on a 5-bit bus ( using only 25 channels)
+and then activates chip select signal (cs) for ADG732 that on the next clock cycle it receives write (wr) signal
+and updates the output channel connected to the input based on the value of the 5-bit address bus.
+This task came from the practical need of testing 25 channel cable assemblies with origignal idea to visualize active channels
+by LEDs on both sides of the cable assembly, hence frequency division to a human-friendly visual control range.
+It's nice on the chip, but makes *vcd files the size of movies in my teens.
 
-To learn more and get started, visit https://tinytapeout.com.
+## Related projects
 
-## Set up your Verilog project
+Before submission to the fab shuttle the project was benchmarked on an FPGA dev board using PMOD LED to visualize 5-bit bus.
+It was also tested on actual ADG732 chip on a breakout board. Look at the [fpga_demux repo](https://github.com/AndyShor/fpga_demux)
 
-1. Add your Verilog files to the `src` folder.
-2. Edit the [info.yaml](info.yaml) and update information about your project, paying special attention to the `source_files` and `top_module` properties. If you are upgrading an existing Tiny Tapeout project, check out our [online info.yaml migration tool](https://tinytapeout.github.io/tt-yaml-upgrade-tool/).
-3. Edit [docs/info.md](docs/info.md) and add a description of your project.
-4. Adapt the testbench to your design. See [test/README.md](test/README.md) for more information.
+## Preview
+This design does not yet physically exist. But rendered view of this tiny chip looks like this
 
-The GitHub action will automatically build the ASIC files using [OpenLane](https://www.zerotoasiccourse.com/terminology/openlane/).
 
-## Enable GitHub actions to build the results page
 
-- [Enabling GitHub Pages](https://tinytapeout.com/faq/#my-github-action-is-failing-on-the-pages-part)
-
-## Resources
-
-- [FAQ](https://tinytapeout.com/faq/)
-- [Digital design lessons](https://tinytapeout.com/digital_design/)
-- [Learn how semiconductors work](https://tinytapeout.com/siliwiz/)
-- [Join the community](https://tinytapeout.com/discord)
-- [Build your design locally](https://www.tinytapeout.com/guides/local-hardening/)
-
-## What next?
-
-- [Submit your design to the next shuttle](https://app.tinytapeout.com/).
-- Edit [this README](README.md) and explain your design, how it works, and how to test it.
-- Share your project on your social network of choice:
-  - LinkedIn [#tinytapeout](https://www.linkedin.com/search/results/content/?keywords=%23tinytapeout) [@TinyTapeout](https://www.linkedin.com/company/100708654/)
-  - Mastodon [#tinytapeout](https://chaos.social/tags/tinytapeout) [@matthewvenn](https://chaos.social/@matthewvenn)
-  - X (formerly Twitter) [#tinytapeout](https://twitter.com/hashtag/tinytapeout) [@tinytapeout](https://twitter.com/tinytapeout)
